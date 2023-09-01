@@ -1,0 +1,128 @@
+@font-face {
+    font-family: 'Spartan';
+    src: url(./League-Spartan.ttf);
+}
+*{
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
+    font-family: 'Spartan';
+    box-sizing: border-box;
+}
+html{
+    font-size: 16px;
+}
+body{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(22, 6, 40);
+}
+main{
+    height: 100%;
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.box-element{
+    display: flex;
+    align-items: center;
+    border-radius: 0.4rem;
+}
+header{
+    height: 2.8125rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+p#main-title{
+    font-size: 1.9rem;
+}
+.text{
+    font-weight: 700;
+    text-align: center;
+    color: rgb(255, 229, 61);
+}
+div#box-result{
+    height: 7rem;
+    width: 100%;
+    padding: 0 1rem;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+    background-color: rgb(29, 9, 52);
+}
+span#text-result{
+    height: fit-content;
+    font-size: 3.2rem;
+}
+#div-aux{
+    height: 26.1875rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1.5rem;
+    background-color: hsl(268, 71%, 12%);
+}
+section#btn-section1{
+    height: 80%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 1.5rem;
+}
+section#btn-section2{
+    height: 20%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.5rem;
+}
+button.key{
+    height: 3rem;
+    border: none;
+    text-align:center;
+    font-weight: 700;
+    font-size: 2rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    transition: 0.14s ease-out;
+    background-color: rgb(52, 28, 79);
+    color:  rgb(255, 229, 61);
+}
+button.key:hover{
+    background-color: rgb(82, 44, 125);
+}
+section button.keybottom{
+    height: 3rem;
+    border: none;
+    text-align:center;
+    font-weight: 700;
+    font-size: 2rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+}
+button.keybottom#btn-del, button.keybottom#reset-btn{
+    font-size: 1.8rem;
+    transition: 0.14s ease-out;
+    color: rgb(255, 255, 255);
+    background-color: rgb(135, 40, 179);
+}
+button#reset-btn:hover{
+    background-color: rgb(94, 18, 129);
+}
+button#btn-del:hover{
+    background-color: rgb(94, 18, 129);
+}
+button#result-btn{
+    transition: 0.14s ease-out;
+    background-color: rgb(255, 229, 61);
+    color: rgb(88, 7, 125);
+}
+button#result-btn:hover{
+    background-color: rgb(178, 154, 0);
+}
