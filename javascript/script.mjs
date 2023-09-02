@@ -92,30 +92,31 @@ del.addEventListener("click", (e) => {
 minus.addEventListener("click", (e) => {
     if (arrayOperator.length === 0){
         operationCode = 0
-        arrayOperator.push(parseFloat(result.innerText))
+        arrayOperator.push(parseFloat(result.innerText));
+        console.log(arrayOperator);
         result.replaceChildren("");
     }
     else if(arrayOperator.length === 1 && result.innerText.length !== 0) {
         if (operationCode !== 4) {
             operationCode = 0;
             arrayOperator.push(parseFloat(result.innerText));
+            console.log(arrayOperator);
             result.replaceChildren("");
-            console.log(result.innerHTML)
             currentResult = arrayOperator[0] - arrayOperator[1];
             arrayOperator[0] = currentResult;
+            console.log(arrayOperator);
             arrayOperator.pop();
         }
         else {
-            operationCode = 0
+            operationCode = 0;
             result.replaceChildren("");
-        }
-    }
+        };
+    };
 });
 plus.addEventListener("click", (e) => {
     if (arrayOperator.length === 0){
         operationCode = 1;
         arrayOperator.push(parseFloat(result.innerText));
-        console.log(arrayOperator);
         result.replaceChildren("");
     }
     else if(arrayOperator.length === 1 && result.innerText.length !== 0) {
