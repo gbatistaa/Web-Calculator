@@ -5,7 +5,6 @@ import { result, resultBtn, minus, plus, divider, multi, resetBtn, point, del } 
 let currentResult = undefined;
 let arrayOperator = [];
 let operationCode = undefined;
-let isNumAux = Boolean();
 let opNumber = 0;
 
 const removeAllChilds = (span) => {
@@ -96,23 +95,22 @@ del.addEventListener("click", (e) => {
 minus.addEventListener("click", (e) => {
     opNumber += 1
     if (arrayOperator.length === 0){
-        if (arrayOperator[0] == NaN) {
+        operationCode = 0;
+        arrayOperator.push(parseFloat(result.innerText));
+        console.log(arrayOperator[0]);
+        result.replaceChildren("");
+        if (isNaN(arrayOperator[0])) {
+            result.replaceChildren("");
             const error = "Error";
             error.split("").forEach((value) => {
                 let letterNode = document.createTextNode(value);
                 result.appendChild(letterNode);
             });
-        }else {
-            operationCode = 0
-            arrayOperator.push(parseFloat(result.innerText));
-            console.log(arrayOperator[0]);
-            result.replaceChildren("");
         }
-    }
-    else if(arrayOperator.length === 1 && result.innerText.length !== 0) {
+    } else if(arrayOperator.length === 1 && result.innerText.length !== 0) {
         if (operationCode !== 4) {
             operationCode = 0;
-            if (arrayOperator[0] != NaN) {
+            if (isNaN(arrayOperator[0]) === false) {
                 console.log(arrayOperator[0]);
                 arrayOperator.push(parseFloat(result.innerText));
                 console.log(arrayOperator);
