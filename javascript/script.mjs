@@ -2,9 +2,11 @@ import { zero, one, two, three, four, five, six, seven, eight, nine } from "./do
 import { result, resultBtn, minus, plus, divider, multi, resetBtn, point, del } from "./domModule.mjs";
 
 // Adicionando eventos de clique em todos os botões, e evento de enter na Window (para mostrar o resultado):
-let currentResult = undefined
-let arrayOperator = []
-let operationCode = undefined 
+let currentResult = undefined;
+let arrayOperator = [];
+let operationCode = undefined;
+let isNumAux = Boolean();
+let opNumber = 0;
 
 const removeAllChilds = (span) => {
     const childNodes = span.childNodes;
@@ -59,7 +61,7 @@ five.addEventListener("click", (e) => {
     }
 });
 six.addEventListener("click", (e) => {
-    if (result.innerText !== "" && currentResult !== undefined) {
+    if (result.innerText !== 0 && currentResult !== undefined) {
         result.replaceChildren("");
     } if (result.innerText.length <= 12) {
         const sixValue = six.value;
@@ -92,6 +94,7 @@ del.addEventListener("click", (e) => {
     if(result.hasChildNodes) result.removeChild(result.lastChild);
 });
 minus.addEventListener("click", (e) => {
+    opNumber += 1
     if (arrayOperator.length === 0){
         operationCode = 0
         arrayOperator.push(parseFloat(result.innerText));
@@ -108,13 +111,15 @@ minus.addEventListener("click", (e) => {
             let resultString = currentResult.toString().split("");
             resultString.forEach((value) => {
                 let resultText = document.createTextNode(value);
-                result.appendChild(resultText)
-                })
+                result.appendChild(resultText);
+            });
             arrayOperator[0] = currentResult;
             console.log(arrayOperator);
             arrayOperator.pop();
-        }
-        else {
+            console.log(result.innerText.length);
+            console.log(arrayOperator);
+            console.log(currentResult);
+        } else {
             operationCode = 0;
             result.replaceChildren("");
         };
@@ -283,6 +288,7 @@ resultBtn.addEventListener("click", (e) => {
 resetBtn.addEventListener("click", (e) => {
     currentResult = undefined;
     arrayOperator = [];
-    operationCode = undefined
-    result.replaceChildren("")
+    operationCode = undefined;
+    opNumber = 0;
+    result.replaceChildren("");
 });
