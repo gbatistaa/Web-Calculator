@@ -96,29 +96,41 @@ del.addEventListener("click", (e) => {
 minus.addEventListener("click", (e) => {
     opNumber += 1
     if (arrayOperator.length === 0){
-        operationCode = 0
-        arrayOperator.push(parseFloat(result.innerText));
-        console.log(arrayOperator);
-        result.replaceChildren("");
+        if (arrayOperator[0] == NaN) {
+            const error = "Error";
+            error.split("").forEach((value) => {
+                let letterNode = document.createTextNode(value);
+                result.appendChild(letterNode);
+            });
+        }else {
+            operationCode = 0
+            arrayOperator.push(parseFloat(result.innerText));
+            console.log(arrayOperator[0]);
+            result.replaceChildren("");
+        }
     }
     else if(arrayOperator.length === 1 && result.innerText.length !== 0) {
         if (operationCode !== 4) {
             operationCode = 0;
-            arrayOperator.push(parseFloat(result.innerText));
-            console.log(arrayOperator);
-            result.replaceChildren("");
-            currentResult = arrayOperator[0] - arrayOperator[1];
-            let resultString = currentResult.toString().split("");
-            resultString.forEach((value) => {
-                let resultText = document.createTextNode(value);
-                result.appendChild(resultText);
-            });
-            arrayOperator[0] = currentResult;
-            console.log(arrayOperator);
-            arrayOperator.pop();
-            console.log(result.innerText.length);
-            console.log(arrayOperator);
-            console.log(currentResult);
+            if (arrayOperator[0] != NaN) {
+                console.log(arrayOperator[0]);
+                arrayOperator.push(parseFloat(result.innerText));
+                console.log(arrayOperator);
+                result.replaceChildren("");
+                currentResult = arrayOperator[0] - arrayOperator[1];
+                let resultString = currentResult.toString().split("");
+                resultString.forEach((value) => {
+                    let resultText = document.createTextNode(value);
+                    result.appendChild(resultText);
+                });
+                arrayOperator[0] = currentResult;
+                console.log(arrayOperator);
+                arrayOperator.pop();
+                console.log(arrayOperator);
+                console.log(currentResult);
+            } else {
+                
+            }
         } else {
             operationCode = 0;
             result.replaceChildren("");
@@ -200,11 +212,10 @@ resultBtn.addEventListener("click", (e) => {
     switch (operationCode) {
         case 0:
             operationCode = 4;
-            if(arrayOperator[0] == NaN){
+            if (arrayOperator[0] == NaN){
                 let errorNode = document.createTextNode("Error");
                 result. appendChild(errorNode);
-            }
-            else if (arrayOperator.length > 0) {
+            } else if (arrayOperator.length > 0) {
                 arrayOperator.push(parseFloat(result.innerText));
                 result.replaceChildren("");
                 currentResult = arrayOperator[0] - arrayOperator[1];
@@ -221,11 +232,10 @@ resultBtn.addEventListener("click", (e) => {
 
         case 1:
             operationCode = 4;
-            if(arrayOperator[0] == NaN){
+            if (arrayOperator[0] == NaN){
                 let errorNode = document.createTextNode("Error");
                 result. appendChild(errorNode);
-            }
-            else if (arrayOperator.length > 0) {
+            } else if (arrayOperator.length > 0) {
                 arrayOperator.push(parseFloat(result.innerText))
                 result.replaceChildren("");
                 currentResult = arrayOperator[0] + arrayOperator[1];
