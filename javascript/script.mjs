@@ -2,9 +2,9 @@ import { zero, one, two, three, four, five, six, seven, eight, nine } from "./do
 import { result, resultBtn, minus, plus, divider, multi, resetBtn, point, del } from "./domModule.mjs";
 
 // Adicionando eventos de clique em todos os botões, e evento de enter na Window (para mostrar o resultado):
-let currentResult = 0
+let currentResult = undefined
 let arrayOperator = []
-let operationCode = 0 
+let operationCode = undefined 
 
 const removeAllChilds = (span) => {
     const childNodes = span.childNodes;
@@ -59,7 +59,9 @@ five.addEventListener("click", (e) => {
     }
 });
 six.addEventListener("click", (e) => {
-    if (result.innerText.length <= 12) {
+    if (result.innerText !== "" && currentResult !== undefined) {
+        result.replaceChildren("");
+    } if (result.innerText.length <= 12) {
         const sixValue = six.value;
         const nodeNumber = document.createTextNode(sixValue);
         result.appendChild(nodeNumber);
@@ -103,6 +105,11 @@ minus.addEventListener("click", (e) => {
             console.log(arrayOperator);
             result.replaceChildren("");
             currentResult = arrayOperator[0] - arrayOperator[1];
+            let resultString = currentResult.toString().split("");
+            resultString.forEach((value) => {
+                let resultText = document.createTextNode(value);
+                result.appendChild(resultText)
+                })
             arrayOperator[0] = currentResult;
             console.log(arrayOperator);
             arrayOperator.pop();
@@ -274,7 +281,8 @@ resultBtn.addEventListener("click", (e) => {
     };
 });
 resetBtn.addEventListener("click", (e) => {
-    currentResult = 0;
+    currentResult = undefined;
     arrayOperator = [];
+    operationCode = undefined
     result.replaceChildren("")
 });
