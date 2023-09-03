@@ -6,6 +6,7 @@ let currentResult = undefined;
 let arrayOperator = [];
 let operationCode = undefined;
 let opNumber = 0;
+let errorCode = false
 
 const removeAllChilds = (span) => {
     const childNodes = span.childNodes;
@@ -60,46 +61,49 @@ five.addEventListener("click", (e) => {
     }
 });
 six.addEventListener("click", (e) => {
-    if (result.innerText !== 0 && currentResult !== undefined) {
-        result.replaceChildren("");
-    } if (result.innerText.length <= 12) {
-        const sixValue = six.value;
-        const nodeNumber = document.createTextNode(sixValue);
-        result.appendChild(nodeNumber);
-    }
+    if(errorCode !== true){
+        if (result.innerText !== 0 && currentResult !== undefined) {
+            result.replaceChildren("");
+        } if (result.innerText.length <= 12) {
+            const sixValue = six.value;
+            const nodeNumber = document.createTextNode(sixValue);
+            result.appendChild(nodeNumber);
+        };
+    };
 });
 seven.addEventListener("click", (e) => {
     if (result.innerText.length <= 12) {
         const sevenValue = seven.value;
         const nodeNumber = document.createTextNode(sevenValue);
         result.appendChild(nodeNumber);
-    }
+    };
 });
 eight.addEventListener("click", (e) => {
     if (result.innerText.length <= 12) {
         const eightValue = eight.value;
         const nodeNumber = document.createTextNode(eightValue);
         result.appendChild(nodeNumber);
-    }
+    };
 });
 nine.addEventListener("click", (e) => {
     if (result.innerText.length <= 12) {
         const nineValue = nine.value;
         const nodeNumber = document.createTextNode(nineValue);
         result.appendChild(nodeNumber);
-    }
+    };
 });
 del.addEventListener("click", (e) => {
-    if(result.hasChildNodes) result.removeChild(result.lastChild);
+    if(errorCode === false) result.replaceChildren("");
+    else if(result.hasChildNodes) result.removeChild(result.lastChild);
 });
 minus.addEventListener("click", (e) => {
-    opNumber += 1
     if (arrayOperator.length === 0){
         operationCode = 0;
         arrayOperator.push(parseFloat(result.innerText));
         console.log(arrayOperator[0]);
         result.replaceChildren("");
         if (isNaN(arrayOperator[0])) {
+            errorCode = true;
             result.replaceChildren("");
             const error = "Error";
             error.split("").forEach((value) => {
@@ -107,13 +111,13 @@ minus.addEventListener("click", (e) => {
                 result.appendChild(letterNode);
             });
         }
-    } else if(arrayOperator.length === 1 && result.innerText.length !== 0) {
+    } else if(arrayOperator.length === 1) {
         if (operationCode !== 4) {
             operationCode = 0;
-            if (isNaN(arrayOperator[0]) === false) {
-                console.log(arrayOperator[0]);
-                arrayOperator.push(parseFloat(result.innerText));
+            if (isNaN(arrayOperator[0]) === false && result.innerText.length !== 0) {
+                errorCode = false
                 console.log(arrayOperator);
+                arrayOperator.push(parseFloat(result.innerText));
                 result.replaceChildren("");
                 currentResult = arrayOperator[0] - arrayOperator[1];
                 let resultString = currentResult.toString().split("");
@@ -127,8 +131,17 @@ minus.addEventListener("click", (e) => {
                 console.log(arrayOperator);
                 console.log(currentResult);
             } else {
-                
-            }
+                errorCode = true;
+                result.replaceChildren("");
+                const error = "Error";
+                error.split("").forEach((value) => {
+                    let letterNode = document.createTextNode(value);
+                    result.appendChild(letterNode);
+                });
+                console.log(errorCode);
+                console.log(arrayOperator);
+                console.log(currentResult)
+            };
         } else {
             operationCode = 0;
             result.replaceChildren("");
