@@ -114,14 +114,18 @@ minus.addEventListener("click", (e) => {
     } else if(arrayOperator.length === 1) {
         if (operationCode !== 4) {
             operationCode = 0;
-            if (isNaN(arrayOperator[0]) === false && result.innerText.length !== 0) {
-                errorCode = false
+            if (isNaN(arrayOperator[0]) === false && result.innerText.length !== 0 && errorCode === false) {
+                errorCode = false;
                 console.log(arrayOperator);
                 arrayOperator.push(parseFloat(result.innerText));
                 result.replaceChildren("");
                 currentResult = arrayOperator[0] - arrayOperator[1];
-                let resultString = currentResult.toString().split("");
-                resultString.forEach((value) => {
+                if (currentResult.toString().length < 13) {
+                    var resultString = currentResult.toString()
+                } else {
+                    var resultString = currentResult.toExponential(2).toString()
+                }
+                resultString.split("").forEach((value) => {
                     let resultText = document.createTextNode(value);
                     result.appendChild(resultText);
                 });
@@ -193,24 +197,59 @@ divider.addEventListener("click", (e) => {
 });
 multi.addEventListener("click", (e) => {
     if (arrayOperator.length === 0){
-        operationCode = 3
+        operationCode = 3;
         arrayOperator.push(parseFloat(result.innerText));
+        console.log(arrayOperator[0]);
         result.replaceChildren("");
-    }
-    else if(arrayOperator.length === 1 && result.innerText.length !== 0) {
+        if (isNaN(arrayOperator[0])) {
+            errorCode = true;
+            result.replaceChildren("");
+            const error = "Error";
+            error.split("").forEach((value) => {
+                let letterNode = document.createTextNode(value);
+                result.appendChild(letterNode);
+            });
+        }
+    } else if(arrayOperator.length === 1) {
         if (operationCode !== 4) {
             operationCode = 3;
-            arrayOperator.push(parseFloat(result.innerText));
+            if (isNaN(arrayOperator[0]) === false && result.innerText.length !== 0 && errorCode === false) {
+                errorCode = false;
+                console.log(arrayOperator);
+                arrayOperator.push(parseFloat(result.innerText));
+                result.replaceChildren("");
+                currentResult = arrayOperator[0] * arrayOperator[1];
+                if (currentResult.toString().length < 13) {
+                    var resultString = currentResult.toString()
+                } else {
+                    var resultString = currentResult.toExponential(2).toString()
+                }
+                resultString.split("").forEach((value) => {
+                    let resultText = document.createTextNode(value);
+                    result.appendChild(resultText);
+                });
+                arrayOperator[0] = currentResult;
+                console.log(arrayOperator);
+                arrayOperator.pop();
+                console.log(arrayOperator);
+                console.log(currentResult);
+            } else {
+                errorCode = true;
+                result.replaceChildren("");
+                const error = "Error";
+                error.split("").forEach((value) => {
+                    let letterNode = document.createTextNode(value);
+                    result.appendChild(letterNode);
+                });
+                console.log(errorCode);
+                console.log(arrayOperator);
+                console.log(currentResult)
+            };
+        } else {
+            operationCode = 3;
             result.replaceChildren("");
-            currentResult = arrayOperator[0] * arrayOperator[1];
-            arrayOperator[0] = currentResult;
-            arrayOperator.pop();
-        }
-        else {
-            operationCode = 3
-            result.replaceChildren("");
-        }
-    }
+        };
+    };
 });
 point.addEventListener("click", (e) => {
     if (result.innerText.length <= 13 && result.innerText.length > 0 && !result.innerText.includes('.') ) {
@@ -223,20 +262,35 @@ resultBtn.addEventListener("click", (e) => {
     switch (operationCode) {
         case 0:
             operationCode = 4;
-            if (arrayOperator[0] == NaN){
-                let errorNode = document.createTextNode("Error");
-                result. appendChild(errorNode);
+            if (isNaN(arrayOperator[0])){
+                errorCode = true;
+                result.replaceChildren("");
+                const error = "Error";
+                error.split("").forEach((value) => {
+                    let letterNode = document.createTextNode(value);
+                    result.appendChild(letterNode);
+                });
             } else if (arrayOperator.length > 0) {
                 arrayOperator.push(parseFloat(result.innerText));
-                result.replaceChildren("");
-                currentResult = arrayOperator[0] - arrayOperator[1];
-                arrayOperator[0] = currentResult;
-                arrayOperator.pop();
-                let resultString = currentResult.toString().split("");
-                resultString.forEach((value) => {
-                    let resultText = document.createTextNode(value);
-                    result.appendChild(resultText)
-                });
+                if (isNaN(arrayOperator[1])){
+                    errorCode = true;
+                    result.replaceChildren("");
+                    const error = "Error";
+                    error.split("").forEach((value) => {
+                        let letterNode = document.createTextNode(value);
+                        result.appendChild(letterNode);
+                    });
+                } else {
+                    result.replaceChildren("");
+                    currentResult = arrayOperator[0] - arrayOperator[1];
+                    arrayOperator[0] = currentResult;
+                    arrayOperator.pop();
+                    let resultString = currentResult.toString().split("");
+                    resultString.forEach((value) => {
+                        let resultText = document.createTextNode(value);
+                        result.appendChild(resultText)
+                    });
+                }
             };
 
             break
@@ -285,21 +339,35 @@ resultBtn.addEventListener("click", (e) => {
 
         case 3:
             operationCode = 4;
-            if(arrayOperator[0] == NaN){
-                let errorNode = document.createTextNode("Error");
-                result.appendChild(errorNode);
-            }
-            else if (arrayOperator.length > 0) {
-                arrayOperator.push(parseFloat(result.innerText));
+            if (isNaN(arrayOperator[0])){
+                errorCode = true;
                 result.replaceChildren("");
-                currentResult = arrayOperator[0] * arrayOperator[1];
-                arrayOperator[0] = currentResult;
-                arrayOperator.pop();
-                let resultString = currentResult.toString().split("");
-                resultString.forEach((value) => {
-                        let resultText = document.createTextNode(value);
-                        result.appendChild(resultText);
+                const error = "Error";
+                error.split("").forEach((value) => {
+                    let letterNode = document.createTextNode(value);
+                    result.appendChild(letterNode);
+                });
+            } else if (arrayOperator.length > 0) {
+                arrayOperator.push(parseFloat(result.innerText));
+                if (isNaN(arrayOperator[1])){
+                    errorCode = true;
+                    result.replaceChildren("");
+                    const error = "Error";
+                    error.split("").forEach((value) => {
+                        let letterNode = document.createTextNode(value);
+                        result.appendChild(letterNode);
                     });
+                } else {
+                    result.replaceChildren("");
+                    currentResult = arrayOperator[0] * arrayOperator[1];
+                    arrayOperator[0] = currentResult;
+                    arrayOperator.pop();
+                    let resultString = currentResult.toString().split("");
+                    resultString.forEach((value) => {
+                        let resultText = document.createTextNode(value);
+                        result.appendChild(resultText)
+                    });
+                }
             };
 
             break
@@ -311,5 +379,6 @@ resetBtn.addEventListener("click", (e) => {
     arrayOperator = [];
     operationCode = undefined;
     opNumber = 0;
+    errorCode = false;
     result.replaceChildren("");
 });
