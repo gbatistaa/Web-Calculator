@@ -222,7 +222,7 @@ multi.addEventListener("click", (e) => {
                 if (currentResult.toString().length < 13) {
                     var resultString = currentResult.toString()
                 } else {
-                    var resultString = currentResult.toExponential(2).toString()
+                    var resultString = currentResult.toExponential(2).toString();
                 }
                 resultString.split("").forEach((value) => {
                     let resultText = document.createTextNode(value);
@@ -360,13 +360,21 @@ resultBtn.addEventListener("click", (e) => {
                 } else {
                     result.replaceChildren("");
                     currentResult = arrayOperator[0] * arrayOperator[1];
+                    if (currentResult.toString().length < 13) {
+                        const resultString = currentResult.toString();
+                        resultString.split("").forEach((value) => {
+                            let resultText = document.createTextNode(value);
+                            result.appendChild(resultText);
+                        });
+                    } else {
+                        const resultString = currentResult.toExponential(2).toString();
+                        resultString.split("").forEach((value) => {
+                            let resultText = document.createTextNode(value);
+                            result.appendChild(resultText);
+                        });
+                    }
                     arrayOperator[0] = currentResult;
                     arrayOperator.pop();
-                    let resultString = currentResult.toString().split("");
-                    resultString.forEach((value) => {
-                        let resultText = document.createTextNode(value);
-                        result.appendChild(resultText)
-                    });
                 }
             };
 
