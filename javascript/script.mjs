@@ -156,44 +156,113 @@ plus.addEventListener("click", (e) => {
     if (arrayOperator.length === 0){
         operationCode = 1;
         arrayOperator.push(parseFloat(result.innerText));
+        console.log(arrayOperator[0]);
         result.replaceChildren("");
-    }
-    else if(arrayOperator.length === 1 && result.innerText.length !== 0) {
+        if (isNaN(arrayOperator[0])) {
+            errorCode = true;
+            result.replaceChildren("");
+            const error = "Error";
+            error.split("").forEach((value) => {
+                let letterNode = document.createTextNode(value);
+                result.appendChild(letterNode);
+            });
+        }
+    } else if(arrayOperator.length === 1) {
         if (operationCode !== 4) {
             operationCode = 1;
-            arrayOperator.push(parseFloat(result.innerText));
-            result.replaceChildren("");
-            currentResult = arrayOperator[0] + arrayOperator[1];
-            arrayOperator[0] = currentResult;
-            arrayOperator.pop();
-        }
-        else {
+            if (isNaN(arrayOperator[0]) === false && result.innerText.length !== 0 && errorCode === false) {
+                errorCode = false;
+                console.log(arrayOperator);
+                arrayOperator.push(parseFloat(result.innerText));
+                result.replaceChildren("");
+                currentResult = arrayOperator[0] + arrayOperator[1];
+                if (currentResult.toString().length < 13) {
+                    var resultString = currentResult.toString()
+                } else {
+                    var resultString = currentResult.toExponential(2).toString()
+                }
+                resultString.split("").forEach((value) => {
+                    let resultText = document.createTextNode(value);
+                    result.appendChild(resultText);
+                });
+                arrayOperator[0] = currentResult;
+                console.log(arrayOperator);
+                arrayOperator.pop();
+                console.log(arrayOperator);
+                console.log(currentResult);
+            } else {
+                errorCode = true;
+                result.replaceChildren("");
+                const error = "Error";
+                error.split("").forEach((value) => {
+                    let letterNode = document.createTextNode(value);
+                    result.appendChild(letterNode);
+                });
+                console.log(errorCode);
+                console.log(arrayOperator);
+                console.log(currentResult)
+            };
+        } else {
             operationCode = 1;
             result.replaceChildren("");
-        }
-    }
+        };
+    };
 });
 divider.addEventListener("click", (e) => {
     if (arrayOperator.length === 0){
         operationCode = 2;
         arrayOperator.push(parseFloat(result.innerText));
+        console.log(arrayOperator[0]);
         result.replaceChildren("");
-    }
-    else if(arrayOperator.length === 1 && result.innerText.length !== 0) {
+        if (isNaN(arrayOperator[0])) {
+            errorCode = true;
+            result.replaceChildren("");
+            const error = "Error";
+            error.split("").forEach((value) => {
+                let letterNode = document.createTextNode(value);
+                result.appendChild(letterNode);
+            });
+        }
+    } else if(arrayOperator.length === 1) {
         if (operationCode !== 4) {
             operationCode = 2;
-            arrayOperator.push(parseFloat(result.innerText));
+            if (isNaN(arrayOperator[0]) === false && result.innerText.length !== 0 && errorCode === false) {
+                errorCode = false;
+                console.log(arrayOperator);
+                arrayOperator.push(parseFloat(result.innerText));
+                result.replaceChildren("");
+                currentResult = arrayOperator[0] / arrayOperator[1];
+                if (currentResult.toString().length < 13) {
+                    var resultString = currentResult.toString()
+                } else {
+                    var resultString = currentResult.toExponential(2).toString()
+                }
+                resultString.split("").forEach((value) => {
+                    let resultText = document.createTextNode(value);
+                    result.appendChild(resultText);
+                });
+                arrayOperator[0] = currentResult;
+                console.log(arrayOperator);
+                arrayOperator.pop();
+                console.log(arrayOperator);
+                console.log(currentResult);
+            } else {
+                errorCode = true;
+                result.replaceChildren("");
+                const error = "Error";
+                error.split("").forEach((value) => {
+                    let letterNode = document.createTextNode(value);
+                    result.appendChild(letterNode);
+                });
+                console.log(errorCode);
+                console.log(arrayOperator);
+                console.log(currentResult)
+            };
+        } else {
+            operationCode = 2;
             result.replaceChildren("");
-            console.log(result.innerHTML)
-            currentResult = arrayOperator[0] / arrayOperator[1];
-            arrayOperator[0] = currentResult;
-            arrayOperator.pop();
-        }
-        else {
-            operationCode = 2
-            result.replaceChildren("");
-        }
-    }
+        };
+    };
 });
 multi.addEventListener("click", (e) => {
     if (arrayOperator.length === 0){
@@ -222,7 +291,7 @@ multi.addEventListener("click", (e) => {
                 if (currentResult.toString().length < 13) {
                     var resultString = currentResult.toString()
                 } else {
-                    var resultString = currentResult.toExponential(2).toString();
+                    var resultString = currentResult.toExponential(7).toString();
                 }
                 resultString.split("").forEach((value) => {
                     let resultText = document.createTextNode(value);
@@ -367,7 +436,7 @@ resultBtn.addEventListener("click", (e) => {
                             result.appendChild(resultText);
                         });
                     } else {
-                        const resultString = currentResult.toExponential(2).toString();
+                        const resultString = currentResult.toExponential(7).toString();
                         resultString.split("").forEach((value) => {
                             let resultText = document.createTextNode(value);
                             result.appendChild(resultText);
