@@ -6,64 +6,101 @@ let currentResult = undefined;
 let arrayOperator = [];
 let operationCode = undefined;
 let opNumber = 0;
-let errorCode = false
+let errorCode = false;
+let resetCode = false;
 
-const removeAllChilds = (span) => {
-    const childNodes = span.childNodes;
-  
-    for (let i = 0; i < childNodes.length; i++) {
-      if (childNodes[i].nodeType === Node.TEXT_NODE) {
-        span.removeChild(childNodes[i]);
-      }
+//Função auxiliar de operações, evitando erro de apenas respeitar o próximo comando:
+
+const operationFunc = (a) => (b) => {
+    switch (operationCode) {
+        case 0:
+            return a - b
+        case 1:
+            return a + b
+        case 2:
+            return a / b
+        case 3:
+            return a * b
     }
 }
 
 zero.addEventListener("click", (e) => {
-    if (result.innerText.length <= 12) {
-        const zeroValue = String(zero.value);
-        const nodeNumber = document.createTextNode(zeroValue);
-        result.appendChild(nodeNumber);
-    }
-});
-one.addEventListener("click", (e) => {
-    if (result.innerText.length <= 12) {
-        const oneValue = one.value;
-        const nodeNumber = document.createTextNode(oneValue);
-        result.appendChild(nodeNumber);
-    }
-});
-two.addEventListener("click", (e) => {
-    if (result.innerText.length <= 12) {
-        const twoValue = two.value;
-        const nodeNumber = document.createTextNode(twoValue);
-        result.appendChild(nodeNumber);
-    }
-});
-three.addEventListener("click", (e) => {
-    if (result.innerText.length <= 12) {
-        const threeValue = three.value;
-        const nodeNumber = document.createTextNode(threeValue);
-        result.appendChild(nodeNumber);
-    }
-});
-four.addEventListener("click", (e) => {
-    if (result.innerText.length <= 12) {
-        const fourValue = four.value;
-        const nodeNumber = document.createTextNode(fourValue);
-        result.appendChild(nodeNumber);
-    }
-});
-five.addEventListener("click", (e) => {
-    if (result.innerText.length <= 12) {
-        const fiveValue = five.value;
-        let nodeNumber = document.createTextNode(fiveValue);
-        result.appendChild(nodeNumber);
-    }
-});
-six.addEventListener("click", (e) => {
-    if(errorCode !== true){
+    if(errorCode === false && resetCode === true){
         if (result.innerText !== 0 && currentResult !== undefined) {
             result.replaceChildren("");
+            resetCode = false;
+        } if (result.innerText.length <= 12) {
+            const zeroValue = zero.value;
+            const nodeNumber = document.createTextNode(zeroValue);
+            result.appendChild(nodeNumber);
+        };
+    };
+});
+one.addEventListener("click", (e) => {
+    if(errorCode === false && resetCode === true){
+        if (result.innerText !== 0 && currentResult !== undefined) {
+            result.replaceChildren("");
+            resetCode = false;
+        } if (result.innerText.length <= 12) {
+            const oneValue = one.value;
+            const nodeNumber = document.createTextNode(oneValue);
+            result.appendChild(nodeNumber);
+        };
+    };
+});
+two.addEventListener("click", (e) => {
+    if(errorCode === false && resetCode === true){
+        if (result.innerText !== 0 && currentResult !== undefined) {
+            result.replaceChildren("");
+            resetCode = false
+        } if (result.innerText.length <= 12) {
+            const twoValue = two.value;
+            const nodeNumber = document.createTextNode(twoValue);
+            result.appendChild(nodeNumber);
+        };
+    };
+});
+three.addEventListener("click", (e) => {
+    if(errorCode === false && resetCode === true){
+        if (result.innerText !== 0 && currentResult !== undefined) {
+            result.replaceChildren("");
+            resetCode = false
+        } if (result.innerText.length <= 12) {
+            const threeValue = three.value;
+            const nodeNumber = document.createTextNode(threeValue);
+            result.appendChild(nodeNumber);
+        };
+    };
+});
+four.addEventListener("click", (e) => {
+    if(errorCode === false && resetCode === true){
+        if (result.innerText !== 0 && currentResult !== undefined) {
+            result.replaceChildren("");
+            resetCode = false
+        } if (result.innerText.length <= 12) {
+            const fourValue = four.value;
+            const nodeNumber = document.createTextNode(fourValue);
+            result.appendChild(nodeNumber);
+        };
+    };
+});
+five.addEventListener("click", (e) => {
+    if(errorCode === false && resetCode === true){
+        if (result.innerText !== 0 && currentResult !== undefined) {
+            result.replaceChildren("");
+            resetCode = false;
+        } if (result.innerText.length <= 12) {
+            const fiveValue = five.value;
+            const nodeNumber = document.createTextNode(fiveValue);
+            result.appendChild(nodeNumber);
+        };
+    };
+});
+six.addEventListener("click", (e) => {
+    if(errorCode === false && resetCode === true){
+        if (result.innerText !== 0 && currentResult !== undefined) {
+            result.replaceChildren("");
+            resetCode = false;
         } if (result.innerText.length <= 12) {
             const sixValue = six.value;
             const nodeNumber = document.createTextNode(sixValue);
@@ -72,24 +109,39 @@ six.addEventListener("click", (e) => {
     };
 });
 seven.addEventListener("click", (e) => {
-    if (result.innerText.length <= 12) {
-        const sevenValue = seven.value;
-        const nodeNumber = document.createTextNode(sevenValue);
-        result.appendChild(nodeNumber);
+    if(errorCode === false && resetCode === true){
+        if (result.innerText !== 0 && currentResult !== undefined) {
+            result.replaceChildren("");
+            resetCode = false;
+        } if (result.innerText.length <= 12) {
+            const sevenValue = seven.value;
+            const nodeNumber = document.createTextNode(sevenValue);
+            result.appendChild(nodeNumber);
+        };
     };
 });
 eight.addEventListener("click", (e) => {
-    if (result.innerText.length <= 12) {
-        const eightValue = eight.value;
-        const nodeNumber = document.createTextNode(eightValue);
-        result.appendChild(nodeNumber);
+    if(errorCode === false && resetCode === true){
+        if (result.innerText !== 0 && currentResult !== undefined) {
+            result.replaceChildren("");
+            resetCode = false;
+        } if (result.innerText.length <= 12) {
+            const eightValue = eight.value;
+            const nodeNumber = document.createTextNode(eightValue);
+            result.appendChild(nodeNumber);
+        };
     };
 });
 nine.addEventListener("click", (e) => {
-    if (result.innerText.length <= 12) {
-        const nineValue = nine.value;
-        const nodeNumber = document.createTextNode(nineValue);
-        result.appendChild(nodeNumber);
+    if(errorCode === false && resetCode === true){
+        if (result.innerText !== 0 && currentResult !== undefined) {
+            result.replaceChildren("");
+            resetCode = false;
+        } if (result.innerText.length <= 12) {
+            const nineValue = nine.value;
+            const nodeNumber = document.createTextNode(nineValue);
+            result.appendChild(nodeNumber);
+        };
     };
 });
 del.addEventListener("click", (e) => {
@@ -113,13 +165,12 @@ minus.addEventListener("click", (e) => {
         }
     } else if(arrayOperator.length === 1) {
         if (operationCode !== 4) {
-            operationCode = 0;
             if (isNaN(arrayOperator[0]) === false && result.innerText.length !== 0 && errorCode === false) {
                 errorCode = false;
                 console.log(arrayOperator);
                 arrayOperator.push(parseFloat(result.innerText));
                 result.replaceChildren("");
-                currentResult = arrayOperator[0] - arrayOperator[1];
+                currentResult = operationFunc(arrayOperator[0])(arrayOperator[1]);
                 if (currentResult.toString().length < 13) {
                     var resultString = currentResult.toString()
                 } else {
@@ -134,6 +185,8 @@ minus.addEventListener("click", (e) => {
                 arrayOperator.pop();
                 console.log(arrayOperator);
                 console.log(currentResult);
+                resetCode = true;
+                operationCode = 0;
             } else {
                 errorCode = true;
                 result.replaceChildren("");
@@ -155,6 +208,7 @@ minus.addEventListener("click", (e) => {
 plus.addEventListener("click", (e) => {
     if (arrayOperator.length === 0){
         operationCode = 1;
+        console.log(operationCode)
         arrayOperator.push(parseFloat(result.innerText));
         console.log(arrayOperator[0]);
         result.replaceChildren("");
@@ -169,13 +223,13 @@ plus.addEventListener("click", (e) => {
         }
     } else if(arrayOperator.length === 1) {
         if (operationCode !== 4) {
-            operationCode = 1;
+            console.log(operationCode)
             if (isNaN(arrayOperator[0]) === false && result.innerText.length !== 0 && errorCode === false) {
                 errorCode = false;
                 console.log(arrayOperator);
                 arrayOperator.push(parseFloat(result.innerText));
                 result.replaceChildren("");
-                currentResult = arrayOperator[0] + arrayOperator[1];
+                currentResult = operationFunc(arrayOperator[0])(arrayOperator[1]);
                 if (currentResult.toString().length < 13) {
                     var resultString = currentResult.toString()
                 } else {
@@ -190,6 +244,8 @@ plus.addEventListener("click", (e) => {
                 arrayOperator.pop();
                 console.log(arrayOperator);
                 console.log(currentResult);
+                resetCode = true;
+                operationCode = 1;
             } else {
                 errorCode = true;
                 result.replaceChildren("");
@@ -210,7 +266,6 @@ plus.addEventListener("click", (e) => {
 });
 divider.addEventListener("click", (e) => {
     if (arrayOperator.length === 0){
-        operationCode = 2;
         arrayOperator.push(parseFloat(result.innerText));
         console.log(arrayOperator[0]);
         result.replaceChildren("");
@@ -223,19 +278,19 @@ divider.addEventListener("click", (e) => {
                 result.appendChild(letterNode);
             });
         }
+        operationCode = 2;
     } else if(arrayOperator.length === 1) {
         if (operationCode !== 4) {
-            operationCode = 2;
             if (isNaN(arrayOperator[0]) === false && result.innerText.length !== 0 && errorCode === false) {
                 errorCode = false;
                 console.log(arrayOperator);
                 arrayOperator.push(parseFloat(result.innerText));
                 result.replaceChildren("");
-                currentResult = arrayOperator[0] / arrayOperator[1];
+                currentResult = operationFunc(arrayOperator[0])(arrayOperator[1]);
                 if (currentResult.toString().length < 13) {
                     var resultString = currentResult.toString()
                 } else {
-                    var resultString = currentResult.toExponential(2).toString()
+                    var resultString = currentResult.toExponential(7).toString()
                 }
                 resultString.split("").forEach((value) => {
                     let resultText = document.createTextNode(value);
@@ -246,6 +301,8 @@ divider.addEventListener("click", (e) => {
                 arrayOperator.pop();
                 console.log(arrayOperator);
                 console.log(currentResult);
+                resetCode = true;
+                operationCode = 2;
             } else {
                 errorCode = true;
                 result.replaceChildren("");
@@ -259,14 +316,13 @@ divider.addEventListener("click", (e) => {
                 console.log(currentResult)
             };
         } else {
-            operationCode = 2;
             result.replaceChildren("");
+            operationCode = 2;
         };
     };
 });
 multi.addEventListener("click", (e) => {
     if (arrayOperator.length === 0){
-        operationCode = 3;
         arrayOperator.push(parseFloat(result.innerText));
         console.log(arrayOperator[0]);
         result.replaceChildren("");
@@ -279,15 +335,15 @@ multi.addEventListener("click", (e) => {
                 result.appendChild(letterNode);
             });
         }
+        operationCode = 3;
     } else if(arrayOperator.length === 1) {
         if (operationCode !== 4) {
-            operationCode = 3;
             if (isNaN(arrayOperator[0]) === false && result.innerText.length !== 0 && errorCode === false) {
                 errorCode = false;
                 console.log(arrayOperator);
                 arrayOperator.push(parseFloat(result.innerText));
                 result.replaceChildren("");
-                currentResult = arrayOperator[0] * arrayOperator[1];
+                currentResult = operationFunc(arrayOperator[0])(arrayOperator[1]);
                 if (currentResult.toString().length < 13) {
                     var resultString = currentResult.toString()
                 } else {
@@ -302,6 +358,8 @@ multi.addEventListener("click", (e) => {
                 arrayOperator.pop();
                 console.log(arrayOperator);
                 console.log(currentResult);
+                resetCode = true;
+                operationCode = 3;
             } else {
                 errorCode = true;
                 result.replaceChildren("");
@@ -457,5 +515,6 @@ resetBtn.addEventListener("click", (e) => {
     operationCode = undefined;
     opNumber = 0;
     errorCode = false;
+    resetCode = false;
     result.replaceChildren("");
 });
