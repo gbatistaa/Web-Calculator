@@ -7,7 +7,7 @@ let arrayOperator = [];
 let operationCode = undefined;
 let opNumber = 0;
 let errorCode = false;
-let resetCode = false;
+let resetCode = true;
 
 //Função auxiliar de operações, evitando erro de apenas respeitar o próximo comando:
 
@@ -26,7 +26,7 @@ const operationFunc = (a) => (b) => {
 
 zero.addEventListener("click", (e) => {
     if(errorCode === false && resetCode === true){
-        if (result.innerText !== 0 && currentResult !== undefined) {
+        if (result.innerText.length !== 0 && currentResult !== undefined) {
             result.replaceChildren("");
             resetCode = false;
         } if (result.innerText.length <= 12) {
@@ -38,7 +38,7 @@ zero.addEventListener("click", (e) => {
 });
 one.addEventListener("click", (e) => {
     if(errorCode === false && resetCode === true){
-        if (result.innerText !== 0 && currentResult !== undefined) {
+        if (result.innerText.length !== 0 && currentResult !== undefined) {
             result.replaceChildren("");
             resetCode = false;
         } if (result.innerText.length <= 12) {
@@ -50,7 +50,7 @@ one.addEventListener("click", (e) => {
 });
 two.addEventListener("click", (e) => {
     if(errorCode === false && resetCode === true){
-        if (result.innerText !== 0 && currentResult !== undefined) {
+        if (result.innerText.length !== 0 && currentResult !== undefined) {
             result.replaceChildren("");
             resetCode = false
         } if (result.innerText.length <= 12) {
@@ -62,7 +62,7 @@ two.addEventListener("click", (e) => {
 });
 three.addEventListener("click", (e) => {
     if(errorCode === false && resetCode === true){
-        if (result.innerText !== 0 && currentResult !== undefined) {
+        if (result.innerText.length !== 0 && currentResult !== undefined) {
             result.replaceChildren("");
             resetCode = false
         } if (result.innerText.length <= 12) {
@@ -74,7 +74,7 @@ three.addEventListener("click", (e) => {
 });
 four.addEventListener("click", (e) => {
     if(errorCode === false && resetCode === true){
-        if (result.innerText !== 0 && currentResult !== undefined) {
+        if (result.innerText.length !== 0 && currentResult !== undefined) {
             result.replaceChildren("");
             resetCode = false
         } if (result.innerText.length <= 12) {
@@ -86,7 +86,7 @@ four.addEventListener("click", (e) => {
 });
 five.addEventListener("click", (e) => {
     if(errorCode === false && resetCode === true){
-        if (result.innerText !== 0 && currentResult !== undefined) {
+        if (result.innerText.length !== 0 && currentResult !== undefined) {
             result.replaceChildren("");
             resetCode = false;
         } if (result.innerText.length <= 12) {
@@ -98,7 +98,7 @@ five.addEventListener("click", (e) => {
 });
 six.addEventListener("click", (e) => {
     if(errorCode === false && resetCode === true){
-        if (result.innerText !== 0 && currentResult !== undefined) {
+        if (result.innerText.length !== 0 && currentResult !== undefined) {
             result.replaceChildren("");
             resetCode = false;
         } if (result.innerText.length <= 12) {
@@ -110,7 +110,7 @@ six.addEventListener("click", (e) => {
 });
 seven.addEventListener("click", (e) => {
     if(errorCode === false && resetCode === true){
-        if (result.innerText !== 0 && currentResult !== undefined) {
+        if (result.innerText.length !== 0 && currentResult !== undefined) {
             result.replaceChildren("");
             resetCode = false;
         } if (result.innerText.length <= 12) {
@@ -122,7 +122,7 @@ seven.addEventListener("click", (e) => {
 });
 eight.addEventListener("click", (e) => {
     if(errorCode === false && resetCode === true){
-        if (result.innerText !== 0 && currentResult !== undefined) {
+        if (result.innerText.length !== 0 && currentResult !== undefined) {
             result.replaceChildren("");
             resetCode = false;
         } if (result.innerText.length <= 12) {
@@ -134,7 +134,7 @@ eight.addEventListener("click", (e) => {
 });
 nine.addEventListener("click", (e) => {
     if(errorCode === false && resetCode === true){
-        if (result.innerText !== 0 && currentResult !== undefined) {
+        if (result.innerText.length !== 0 && currentResult !== undefined) {
             result.replaceChildren("");
             resetCode = false;
         } if (result.innerText.length <= 12) {
@@ -188,6 +188,7 @@ minus.addEventListener("click", (e) => {
                 resetCode = true;
                 operationCode = 0;
             } else {
+                resetCode = true;
                 errorCode = true;
                 result.replaceChildren("");
                 const error = "Error";
@@ -248,6 +249,7 @@ plus.addEventListener("click", (e) => {
                 operationCode = 1;
             } else {
                 errorCode = true;
+                resetCode = true;
                 result.replaceChildren("");
                 const error = "Error";
                 error.split("").forEach((value) => {
@@ -305,6 +307,7 @@ divider.addEventListener("click", (e) => {
                 operationCode = 2;
             } else {
                 errorCode = true;
+                resetCode = true;
                 result.replaceChildren("");
                 const error = "Error";
                 error.split("").forEach((value) => {
@@ -515,6 +518,6 @@ resetBtn.addEventListener("click", (e) => {
     operationCode = undefined;
     opNumber = 0;
     errorCode = false;
-    resetCode = false;
+    resetCode = true;
     result.replaceChildren("");
 });
