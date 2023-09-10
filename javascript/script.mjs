@@ -279,7 +279,7 @@ multi.addEventListener("click", (e) => {
             });
         }
         operationCode = 3;
-    } else if(arrayOperator.length === 1) {
+    } else if(arrayOperator.length >= 1) {
         if (operationCode !== 4) {
             if (isNaN(arrayOperator[0]) === false && result.innerText.length !== 0 && errorCode === false) {
                 errorCode = false;
