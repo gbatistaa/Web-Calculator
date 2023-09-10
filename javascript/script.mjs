@@ -2,8 +2,10 @@ import { zero, one, two, three, four, five, six, seven, eight, nine } from "./do
 import { result, resultBtn, minus, plus, divider, multi, resetBtn, point, del } from "./domModule.mjs";
 
 // Adicionando eventos de clique em todos os botões, e evento de enter na Window (para mostrar o resultado):
-let currentResult = undefined;
 let arrayOperator = [];
+let multDivArr = [];
+let standBy = undefined;
+let currentResult = undefined;
 let operationCode = undefined;
 let errorCode = false;
 let resultOnScreen = false;
@@ -23,6 +25,18 @@ const operationFunc = (a) => (b) => {
     };
 };
 
+// Função recursiva para auxiliar nas operações com stand by:
+
+const multiDivAll = (array, opCode) => {
+    if (typeof array == "object"){
+        if (opCode === 3) {
+            return array.reduce((total, value) => total * value, 1)
+        } else {
+            return array.reduce((total, value) => total / value, 1)
+        };
+    }
+};
+
 const addDigit = (digit) => {
     if (errorCode === false) {
         if (result.innerText.length !== 0 && currentResult !== undefined && resultOnScreen === true) {
@@ -35,16 +49,16 @@ const addDigit = (digit) => {
     };
 };
 
-zero.addEventListener("click", () => addDigit(zero.value));
-one.addEventListener("click", () => addDigit(one.value));
-two.addEventListener("click", () => addDigit(two.value));
-three.addEventListener("click", () => addDigit(three.value));
-four.addEventListener("click", () => addDigit(four.value));
-five.addEventListener("click", () => addDigit(five.value));
-six.addEventListener("click", () => addDigit(six.value));
-seven.addEventListener("click", () => addDigit(seven.value));
-eight.addEventListener("click", () => addDigit(eight.value));
-nine.addEventListener("click", () => addDigit(nine.value));
+zero.addEventListener("click", (e) => addDigit(zero.value));
+one.addEventListener("click", (e) => addDigit(one.value));
+two.addEventListener("click", (e) => addDigit(two.value));
+three.addEventListener("click", (e) => addDigit(three.value));
+four.addEventListener("click", (e) => addDigit(four.value));
+five.addEventListener("click", (e) => addDigit(five.value));
+six.addEventListener("click", (e) => addDigit(six.value));
+seven.addEventListener("click", (e) => addDigit(seven.value));
+eight.addEventListener("click", (e) => addDigit(eight.value));
+nine.addEventListener("click", (e) => addDigit(nine.value));
 
 del.addEventListener("click", (e) => {
     if(errorCode === false) result.replaceChildren("");
@@ -115,13 +129,13 @@ minus.addEventListener("click", (e) => {
 });
 plus.addEventListener("click", (e) => {
     if (arrayOperator.length === 0){
-        operationCode = 1;
         console.log(operationCode)
         currentResult = parseFloat(result.innerText);
         console.log(currentResult);
         arrayOperator.push(parseFloat(result.innerText));
         console.log(arrayOperator);
         result.replaceChildren("");
+        operationCode = 1;
         if (isNaN(arrayOperator[0])) {
             errorCode = true;
             result.replaceChildren("");
@@ -131,7 +145,7 @@ plus.addEventListener("click", (e) => {
                 result.appendChild(letterNode);
             });
         }
-    } else if(arrayOperator.length === 1) {
+    } else if(arrayOperator.length >= 1) {
         if (operationCode !== 4) {
             console.log(operationCode)
             if (isNaN(arrayOperator[0]) === false && result.innerText.length !== 0 && errorCode === false) {
@@ -139,24 +153,30 @@ plus.addEventListener("click", (e) => {
                 console.log(arrayOperator);
                 arrayOperator.push(parseFloat(result.innerText));
                 console.log(arrayOperator);
+                console.log(currentResult)
                 result.replaceChildren("");
                 if (operationCode === 0 || operationCode === 1) {
                     currentResult = operationFunc(arrayOperator[0])(arrayOperator[1]);
+                    arrayOperator[0] = currentResult;
+                    arrayOperator.pop();
                 } else {
-                    currentResult += operationFunc(arrayOperator[0])(arrayOperator[1]);
+                    console.log(operationCode);
+                    console.log(currentResult);
+                    currentResult += multiDivAll(arrayOperator, operationCode);
+                    arrayOperator = [currentResult];
+                    console.log(multiDivAll(arrayOperator, operationCode));
+                    console.log(currentResult);
                 }
                 if (currentResult.toString().length < 13) {
-                    var resultString = currentResult.toString()
+                    var resultString = currentResult.toString();
                 } else {
-                    var resultString = currentResult.toExponential(2).toString()
+                    var resultString = currentResult.toExponential(7).toString()
                 }
                 resultString.split("").forEach((value) => {
                     let resultText = document.createTextNode(value);
                     result.appendChild(resultText);
                 });
-                arrayOperator[0] = currentResult;
                 console.log(arrayOperator);
-                arrayOperator.pop();
                 console.log(arrayOperator);
                 console.log(currentResult);
                 operationCode = 1;
@@ -264,28 +284,44 @@ multi.addEventListener("click", (e) => {
             if (isNaN(arrayOperator[0]) === false && result.innerText.length !== 0 && errorCode === false) {
                 errorCode = false;
                 console.log(arrayOperator);
-                if (operationCode === 2 || operationCode === 3) {
+                if (operationCode >= 2) {
                     arrayOperator.push(parseFloat(result.innerText));
+                    console.log(arrayOperator)
                     result.replaceChildren("");
-                    currentResult = operationFunc(arrayOperator[0])(arrayOperator[1]);
+                    if (standBy === undefined) {
+                        arrayOperator.push(parseFloat(result.innerText));
+                        result.replaceChildren("");
+                        currentResult = operationFunc(arrayOperator[0])(arrayOperator[1]);
+                        arrayOperator[0] = currentResult;
+                        arrayOperator.pop();
+                    } else {
+                        // console.log(parseFloat(result.innerText))
+                        // arrayOperator.push(parseFloat(result.innerText));
+                        // result.replaceChildren("");
+                    }
                     if (currentResult.toString().length < 13) {
                         var resultString = currentResult.toString()
+                        resultString.split("").forEach((value) => {
+                            let resultText = document.createTextNode(value);
+                            result.appendChild(resultText);
+                        });
                     } else {
                         var resultString = currentResult.toExponential(7).toString();
+                        resultString.split("").forEach((value) => {
+                            let resultText = document.createTextNode(value);
+                            result.appendChild(resultText);
+                        });
                     }
-                    resultString.split("").forEach((value) => {
-                        let resultText = document.createTextNode(value);
-                        result.appendChild(resultText);
-                    });
-                    arrayOperator[0] = currentResult;
                     console.log(arrayOperator);
-                    arrayOperator.pop();
                     console.log(arrayOperator);
                     console.log(currentResult);
                     operationCode = 3;
                     resultOnScreen = true;
                 } else {
-                    console.log(arrayOperator)
+                    console.log(arrayOperator);
+                    standBy = arrayOperator[0];
+                    console.log(currentResult);
+                    console.log(standBy);
                     arrayOperator.shift();
                     console.log(arrayOperator)
                     arrayOperator.push(parseFloat(result.innerText));
